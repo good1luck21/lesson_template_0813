@@ -1,2 +1,17 @@
 <h1>Posts#index</h1>
 <p>Find me in app/views/posts/index.html.erb</p>
+<% if loged_in? %>
+  <%= form_for @post, url: posts_path do |f| %>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %><br>
+    <%= f.label :body %><br>
+    <%= f.text_area :body %><br>
+    <%= f.submit %>
+  <% end %>
+<% else %>
+  <%= link_to 'ログイン', login_path %>
+<% end %>
+
+<% @posts.each do |post| %>
+  <p><%= link_to post.title, post_path(post) %> | <%= post.created_at %> | <%= post.user.name %>さんの投稿</p>
+<% end %>
